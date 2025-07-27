@@ -1,0 +1,17 @@
+## 1. Criação das Tabelas no Athena
+
+### Tabela: `cliente`
+```sql
+CREATE EXTERNAL TABLE IF NOT EXISTS default.cliente (
+  id_cliente INT,
+  nome STRING,
+  valor_compra DOUBLE,
+  loja_cadastro STRING
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+WITH SERDEPROPERTIES (
+  'serialization.format' = ',',
+  'field.delim' = ','
+)
+LOCATION 's3://modulo7-jekinha-ebac/cliente/'
+TBLPROPERTIES ('has_encrypted_data' = 'false');
